@@ -1,42 +1,61 @@
-# react-router-v7-hono-shadcn-template
+# Cloudflare Workers & React Router v7 & shadcn/ui & Hono template
 
-<https://react-router-v7-hono-shadcn-template.pages.dev>
+<https://workers-react-router-v7-hono-shadcn-template.yashikota.workers.dev>
 
-## Framework/Library
+## Getting Started
 
-- [React Router v7](https://reactrouter.com)
-- [Hono](https://hono.dev)
-- [shadcn/ui](https://ui.shadcn.com)
+### Installation
 
-## Commands
+Install the dependencies:
 
-Start the development server.
+```bash
+npm install
+```
 
-```sh
+### Development
+
+Start the development server with HMR:
+
+```bash
 npm run dev
 ```
 
----
+Your application will be available at `http://localhost:5173`.
 
-Emulate the operation on Cloudflare Pages.
+## Previewing the Production Build
 
-```sh
+Preview the production build locally:
+
+```bash
 npm run preview
 ```
 
----
+## Building for Production
 
-Build the project.
+Create a production build:
 
-```sh
+```bash
 npm run build
 ```
 
----
+## Deployment
 
-Deploy the project to Cloudflare Pages.  
-Edit `wrangler.toml` before deploying.
+Deployment is done using the Wrangler CLI.
+
+To build and deploy directly to production:
 
 ```sh
 npm run deploy
+```
+
+To deploy a preview URL:
+
+```sh
+npx wrangler versions upload
+```
+
+You can then promote a version to production after verification or roll it out progressively.
+
+```sh
+npx wrangler versions deploy
 ```

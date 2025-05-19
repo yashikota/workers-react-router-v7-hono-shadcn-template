@@ -7,7 +7,15 @@
   },
   "files": {
     "ignoreUnknown": false,
-    "ignore": []
+    "ignore": [
+      "dist",
+      "build",
+      "tsconfig*.json",
+      ".react-router",
+      "app.css",
+      "entry.server.tsx",
+      "*.d.ts"
+    ]
   },
   "formatter": {
     "enabled": true,
@@ -26,6 +34,7 @@
   "javascript": {
     "formatter": {
       "quoteStyle": "double",
+      "indentStyle": "space",
       "indentWidth": 2
     }
   }

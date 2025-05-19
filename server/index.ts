@@ -1,24 +1,25 @@
 import { Hono } from "hono";
 
-const app = new Hono<{
-  Bindings: {
-    MY_VAR: string;
-  };
-  Variables: {
-    MY_VAR_IN_VARIABLES: string;
-  };
-}>();
+const app = new Hono<{ Bindings: Env }>();
 
-app.use(async (c, next) => {
-  c.set("MY_VAR_IN_VARIABLES", "My variable set in c.set");
-  await next();
-  c.header("X-Powered-By", "React Router and Hono");
-});
+app.get('/api', (c) => {
+  return c.text('Hello Hono!');
+})
 
-app.get("/api", (c) => {
-  return c.json({
-    "Sentry Turret": c.env.MY_VAR,
+export const getApp = (
+  handler: (
+    request: Request,
+    env: Env,
+    ctx: ExecutionContext,
+  ) => Promise<Response>,
+) => {
+  app.all("*", async (context) => {
+    return handler(
+      context.req.raw,
+      context.env,
+      context.executionCtx as ExecutionContext,
+    );
   });
-});
 
-export default app;
+  return app;
+};

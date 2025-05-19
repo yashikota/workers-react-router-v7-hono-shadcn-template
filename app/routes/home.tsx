@@ -1,33 +1,21 @@
-import { Button } from "~/components/ui/button";
-import type { Route } from "./+types/_index";
+import { Welcome } from "../welcome/welcome";
+import type { Route } from "./+types/home";
 
-export const loader = (args: Route.LoaderArgs) => {
-  const extra = args.context.extra;
-  const cloudflare = args.context.cloudflare;
-  const myVarInVariables = args.context.hono.context.get("MY_VAR_IN_VARIABLES");
-  const isWaitUntilDefined = !!cloudflare.ctx.waitUntil;
-  return { cloudflare, extra, myVarInVariables, isWaitUntilDefined };
-};
+export function meta() {
+  return [
+    { title: "New React Router App" },
+    { name: "description", content: "Welcome to React Router!" },
+  ];
+}
 
-export default function Index({ loaderData }: Route.ComponentProps) {
-  const { cloudflare, extra, myVarInVariables, isWaitUntilDefined } =
-    loaderData;
+export function loader({ context }: Route.LoaderArgs) {
+  return { message: context.cloudflare.env.VALUE_FROM_CLOUDFLARE };
+}
+
+export default function Home({ loaderData }: Route.ComponentProps) {
   return (
-    <main className="flex flex-col items-center justify-center h-screen">
-      <h1 className="text-3xl">react-router-v7-hono-shadcn-template</h1>
-      <h2>Var is {cloudflare.env.MY_VAR}</h2>
-      <h3>
-        {cloudflare.cf ? "cf," : ""}
-        {cloudflare.ctx ? "ctx," : ""}
-        {cloudflare.caches ? "caches are available" : ""}
-      </h3>
-      <h4>Extra is {extra}</h4>
-      <h5>Var in Variables is {myVarInVariables}</h5>
-      <h6>waitUntil is {isWaitUntilDefined ? "defined" : "not defined"}</h6>
-
-      <a href="/api" className="mt-4">
-        <Button>Go to /api</Button>
-      </a>
-    </main>
+    <>
+      <Welcome message={loaderData.message} />
+    </>
   );
 }
